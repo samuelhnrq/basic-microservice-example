@@ -41,7 +41,7 @@
       :response                                ; unwrap the repsonse only from the resp-map
       (select-keys [:status :body :headers]))) ; drop excess http implementation keys
 
-(defn do-req-resp! [request {:keys [http-impl] :as component}]
+(defn do-req-resp! [request {:keys [http-impl]}]
   (-> request
       (request-sync! http-impl)
       handle-response)) ; parse and return the response

@@ -1,10 +1,9 @@
 (ns basic-microservice-example.account-flow
   (:require [basic-microservice-example.components :as components]
             [basic-microservice-example.components.mock-http :as mock-http]
-            [basic-microservice-example.components.system-utils :as system-utils]
             [basic-microservice-example.http-helpers :refer [GET POST]]
             [basic-microservice-example.protocols.storage-client :as storage-client]
-            [matcher-combinators.matchers :refer [in-any-order embeds equals]]
+            [matcher-combinators.matchers :refer [embeds equals]]
             [matcher-combinators.midje :refer [match]]
             [midje.sweet :refer :all]
             [selvage.flow :refer [*world* flow]]))
