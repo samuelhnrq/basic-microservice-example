@@ -27,13 +27,13 @@
 
 (defn base []
   (component/system-map
-    :config    (config/new-config base-config-map)
+    :config (config/new-config base-config-map)
     :http-impl (component/using (http-kit/new-http-client) [:config])
-    :http      (component/using (http/new-http) [:config :http-impl])
-    :storage   (storage/new-in-memory)
-    :routes    (routes/new-routes #'basic-microservice-example.service/routes)
-    :service   (component/using (service/new-service) web-app-deps)
-    :servlet   (component/using (dev-servlet/new-servlet) [:service])))
+    :http (component/using (http/new-http) [:config :http-impl])
+    :storage (storage/new-in-memory)
+    :routes (routes/new-routes #'basic-microservice-example.service/routes)
+    :service (component/using (service/new-service) web-app-deps)
+    :servlet (component/using (dev-servlet/new-servlet) [:service])))
 
 (defn e2e []
   (s/set-fn-validation! true)
@@ -44,11 +44,11 @@
 (defn test-system []
   (merge (base)
          (component/system-map
-           :config       (config/new-config local-config-map)
-           :servlet      (component/using (mock-servlet/new-servlet) [:service])
+           :config (config/new-config local-config-map)
+           :servlet (component/using (mock-servlet/new-servlet) [:service])
            :debug-logger (debug-logger/new-debug-logger)
-           :http         (component/using (mock-http/new-mock-http) [:config])
-           :service      (component/using (service/new-service) (conj web-app-deps :debug-logger)))))
+           :http (component/using (mock-http/new-mock-http) [:config])
+           :service (component/using (service/new-service) (conj web-app-deps :debug-logger)))))
 
 (def systems-map
   {:e2e-system   e2e

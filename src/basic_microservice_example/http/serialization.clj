@@ -22,7 +22,7 @@
   ;; Ignores String values in a map (both keys and values)
   ([from :- Character, to :- Character] (replace-char-gen from to #{}))
   ([from :- Character, to :- Character, exceptions :- #{s/Keyword}]
-    #(if (keyword? %) (replace-char % from to exceptions) %)))
+   #(if (keyword? %) (replace-char % from to exceptions) %)))
 
 (defn dash->underscore [json-doc]
   (walk/postwalk (replace-char-gen \- \_) json-doc))

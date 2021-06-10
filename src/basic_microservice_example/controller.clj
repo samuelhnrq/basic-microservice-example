@@ -14,13 +14,13 @@
   (db.saving-account/remove-account! account-id storage))
 
 (defn get-customer [customer-id http]
-  (let [customer-url  (str "http://customer-service.com/customer/" customer-id)]
+  (let [customer-url (str "http://customer-service.com/customer/" customer-id)]
     (:body (http-client/req! http {:url    customer-url
                                    :method :get}))))
 
 (defn create-account! [customer-id storage http]
   (let [customer (get-customer customer-id http)
-        account  (logic/new-account customer-id (:customer-name customer))]
+        account (logic/new-account customer-id (:customer-name customer))]
     (db.saving-account/add-account! account storage)
     account))
 

@@ -23,40 +23,40 @@
    service, we mock the response from that service"
   [{:keys [customer-id] :as world}]
   (let [customer-url (str "http://customer-service.com/customer/" customer-id)
-        url          "/account/"
-        resp-body    (mock-http/with-responses
-                       [customer-url {:body {:customer-name "bob"}}]
-                       (-> url
-                           (POST {:customer-id customer-id} 200)
-                           :body))]
+        url "/account/"
+        resp-body (mock-http/with-responses
+                    [customer-url {:body {:customer-name "bob"}}]
+                    (-> url
+                        (POST {:customer-id customer-id} 200)
+                        :body))]
     (assoc world
-           :created-account resp-body
-           :account-id      (-> resp-body :account :id))))
+      :created-account resp-body
+      :account-id (-> resp-body :account :id))))
 
 (defn lookup-missing-account
   "Assert that no account is found for the current customer ID by hitting the
    /account/from-customer/:customer-id endpoint"
   [{:keys [customer-id] :as world}]
-  (let [url       (str "/account/from-customer/" customer-id)
+  (let [url (str "/account/from-customer/" customer-id)
         resp-body (:body (GET url 400))]
     (assoc world :account-lookup resp-body)))
 
 (flow "create savings account, look it up, and close it"
-  init!
+      init!
 
-  ;; create a customer ID
-  (fn [world]
-    (assoc world :customer-id (java.util.UUID/randomUUID)))
+      ;; create a customer ID
+      (fn [world]
+        (assoc world :customer-id (java.util.UUID/randomUUID)))
 
-  ;; try to find an account that corresponds to that customer ID
-  lookup-missing-account
+      ;; try to find an account that corresponds to that customer ID
+      lookup-missing-account
 
-  (fact "There shouldn't be a savings account for Bob yet"
-    (:account-lookup *world*) => {})
+      (fact "There shouldn't be a savings account for Bob yet"
+            (:account-lookup *world*) => {})
 
-  create-account!
+      create-account!
 
-  (fact "There should now be a savings account for Bob"
-    (:created-account *world*) => (match {:account (equals {:customer-id uuid?
-                                                            :id          uuid?
-                                                            :name        "bob"})})))
+      (fact "There should now be a savings account for Bob"
+            (:created-account *world*) => (match {:account (equals {:customer-id uuid?
+                                                                    :id          uuid?
+                                                                    :name        "bob"})})))

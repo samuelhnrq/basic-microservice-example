@@ -11,8 +11,8 @@
   ;; register it for debug logging. Eventually find a more basic way to do
   ;; this.
   (interceptor.error/error-dispatch [ctx ex]
-    :else
-    (do
-      (register-error-for-debugging ctx ex)
-      (assoc ctx :io.pedestal.interceptor.chain/error ex))))
+                                    :else
+                                    (do
+                                      (register-error-for-debugging ctx ex)
+                                      (assoc ctx :io.pedestal.interceptor.chain/error ex))))
 

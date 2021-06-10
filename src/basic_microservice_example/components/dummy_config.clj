@@ -4,6 +4,6 @@
 (defrecord DummyConfig [config]
   component/Lifecycle
   (start [this] this)
-  (stop  [this] this))
+  (stop [this] this))
 
 (defn new-config [config-map] (->DummyConfig config-map))

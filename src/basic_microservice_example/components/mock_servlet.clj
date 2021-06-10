@@ -6,6 +6,6 @@
   component/Lifecycle
   (start [this]
     (assoc this :instance (-> service :runnable-service bootstrap/create-server)))
-  (stop  [this] (dissoc this :instance)))
+  (stop [this] (dissoc this :instance)))
 
 (defn new-servlet [] (map->MockServlet {}))

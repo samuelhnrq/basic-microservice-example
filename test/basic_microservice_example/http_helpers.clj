@@ -11,10 +11,10 @@
 
 (defn format-exception [throwable]
   (binding [aviso.exception/*traditional* true
-            aviso.exception/*fonts*       (merge aviso.exception/*fonts*
-                                                 {:message       aviso.ansi/white-font
-                                                  :clojure-frame aviso.ansi/white-font
-                                                  :function-name aviso.ansi/white-font})]
+            aviso.exception/*fonts* (merge aviso.exception/*fonts*
+                                           {:message       aviso.ansi/white-font
+                                            :clojure-frame aviso.ansi/white-font
+                                            :function-name aviso.ansi/white-font})]
     (aviso.exception/format-exception throwable)))
 
 (defn bootstrap-service []
@@ -64,19 +64,19 @@
   ([method uri body expected-status]
    (with-debug-error-logging
      ;; Raw pedestal response, without content negotiation or serialization support
-     (let [service         (bootstrap-service)
+     (let [service (bootstrap-service)
            {:keys [headers
                    status
-                   body]}  (response-for service method uri
-                                         :body (when body
-                                                 (serialization/write-edn body))
-                                         :headers default-headers)]
-       (let [deserialized-resp {:body   (try (output-stream->data body)
-                                             (catch Exception _ body))
+                   body]} (response-for service method uri
+                                        :body (when body
+                                                (serialization/write-edn body))
+                                        :headers default-headers)]
+       (let [deserialized-resp {:body    (try (output-stream->data body)
+                                              (catch Exception _ body))
                                 :headers headers}]
          (assert-status! method uri status expected-status deserialized-resp)
 
          deserialized-resp)))))
 
-(def GET  (partial req! :get))
+(def GET (partial req! :get))
 (def POST (partial req! :post))

@@ -12,7 +12,7 @@
                               (assoc ::bootstrap/join? false)
                               bootstrap/create-server
                               bootstrap/start)))
-  (stop  [this]
+  (stop [this]
     (bootstrap/stop (:instance this))
     (dissoc this :instance))
 
@@ -25,9 +25,9 @@
   (.write w "<DevServlet>"))
 
 (defn main [start-fn & _args]
-  (start-fn {:mode :embedded})) ; lein run
+  (start-fn {:mode :embedded}))                             ; lein run
 
 (defn run-dev [start-fn & _args]
   ;; The entry-point for 'lein run-dev', 'lein with-profile +repl-start'
-  (dev/watch) ;; auto-reload namespaces only in run-dev / repl-start
+  (dev/watch)                                               ;; auto-reload namespaces only in run-dev / repl-start
   (start-fn {:mode :embedded}))

@@ -10,7 +10,7 @@
 
   component/Lifecycle
   (start [this] this)
-  (stop  [this] this)
+  (stop [this] this)
 
   protocols.debug-logger/DebugLogger
   (register-last-error! [_ error]

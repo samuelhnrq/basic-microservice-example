@@ -15,19 +15,19 @@
     (let [valid-http-kit-req (select-keys req-map http-kit-keys)
           ;; Why the `identity` function is needed as the second argument to
           ;; http-kit/request remains a mystery
-          response           @(http-kit/request valid-http-kit-req identity)]
+          response @(http-kit/request valid-http-kit-req identity)]
       (when (:error response)
         (throw (ex-info "Http error"
-                        {:from         ::req!
-                         :reason       :out-response-exception
-                         :url          url
-                         :method       method
-                         :cause        (:error response)})))
+                        {:from   ::req!
+                         :reason :out-response-exception
+                         :url    url
+                         :method method
+                         :cause  (:error response)})))
       response))
 
   component/Lifecycle
   (start [this] this)
-  (stop  [this] this)
+  (stop [this] this)
 
   Object
   (toString [_] "<HttpKit>"))

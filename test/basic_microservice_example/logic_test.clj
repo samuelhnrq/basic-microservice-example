@@ -6,6 +6,6 @@
 (def customer-id (UUID/randomUUID))
 
 (fact "New account generation"
-  (logic/new-account customer-id "Abel") => (just {:id          uuid?
-                                                   :name        "Abel"
-                                                   :customer-id customer-id}))
+      (logic/new-account customer-id "Abel") => (just {:id          uuid?
+                                                       :name        "Abel"
+                                                       :customer-id customer-id}))

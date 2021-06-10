@@ -7,5 +7,5 @@
 (components/ensure-system-up! :test-system)
 
 (fact "hitting home page endpoint"
-  (GET "/" 200) => (match {:body {:message "Hello World!"}}))
+      (GET "/" 200) => (match {:body {:message "Hello World!"}}))
 

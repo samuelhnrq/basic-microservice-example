@@ -5,7 +5,7 @@
 (defrecord InMemoryStorage [storage]
   component/Lifecycle
   (start [this] this)
-  (stop  [this]
+  (stop [this]
     (reset! storage {})
     this)
 

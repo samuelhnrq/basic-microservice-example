@@ -30,8 +30,8 @@
   ;; Unsupported: multiple requests to one URI expected to have different
   ;; responses We render a full body with the exception to ensure it is visible
   ;; within selvage test failure output
-  (let [candidates (map  (fn [[k resp]] [(response-key->pred k) resp]) responses)
-        resp       (some (fn [[k-pred resp]] (when (k-pred unrendered) resp)) candidates)]
+  (let [candidates (map (fn [[k resp]] [(response-key->pred k) resp]) responses)
+        resp (some (fn [[k-pred resp]] (when (k-pred unrendered) resp)) candidates)]
     (or resp
         (if responses
           (when (not= {} *response*)
@@ -39,8 +39,8 @@
           *response*)
         (do (prn (str "*responses* is non-nil, but uri `" url "` was not found in the map"))
             {:status 500
-             :body {:error "*responses* is non-nil, but uri was not found in the map"
-                    :url   url}}))))
+             :body   {:error "*responses* is non-nil, but uri was not found in the map"
+                      :url   url}}))))
 
 (defn update-atom! [{:keys [requests responses]} unrendered rendered]
   (let [lookup-key (lookup-key unrendered)]
@@ -57,10 +57,10 @@
 
   component/Lifecycle
   (start [this] this)
-  (stop  [this] this))
+  (stop [this] this))
 
 (defn new-mock-http
-  ([]         (new-mock-http h-com/json-defaults))
+  ([] (new-mock-http h-com/json-defaults))
   ([defaults] (map->Http {:defaults  defaults
                           :responses (atom nil)
                           :requests  (atom {})})))

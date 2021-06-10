@@ -11,14 +11,14 @@
   (ring-resp/response {:message "Hello World!"}))
 
 (defn create-account
-  [{{:keys [customer-id]} :edn-params
+  [{{:keys [customer-id]}  :edn-params
     {:keys [http storage]} :components}]
   (let [account (controller/create-account! customer-id storage http)]
     (ring-resp/response {:account account})))
 
 (defn customer->account
   [{{:keys [customer-id]} :path-params
-    {:keys [storage]} :components}]
+    {:keys [storage]}     :components}]
   (let [account (controller/customer->account (adapters/str->uuid customer-id) storage)]
     (if account
       (ring-resp/response {:account account})
@@ -28,13 +28,13 @@
 
 (defn get-account
   [{{:keys [account-id]} :path-params
-    {:keys [storage]} :components}]
+    {:keys [storage]}    :components}]
   (ring-resp/response
     (controller/get-account account-id storage)))
 
 (defn delete-account
   [{{:keys [account-id]} :path-params
-    {:keys [storage]} :components}]
+    {:keys [storage]}    :components}]
   (ring-resp/response
     (controller/delete-account! (adapters/str->uuid account-id) storage)))
 
