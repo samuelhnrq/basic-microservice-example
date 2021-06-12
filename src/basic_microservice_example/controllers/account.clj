@@ -1,6 +1,6 @@
-(ns basic-microservice-example.controller
+(ns basic-microservice-example.controllers.account
   (:require [basic-microservice-example.protocols.http-client :as http-client]
-            [basic-microservice-example.logic :as logic]
+            [basic-microservice-example.logic.account :as logic]
             [basic-microservice-example.db.saving-account :as db.saving-account]))
 
 (defn customer->account [customer-id storage]

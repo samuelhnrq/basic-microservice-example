@@ -16,6 +16,9 @@ target/
 repl-port
 .nrepl-port
 .repl
+.idea/
+.lsp/
+.calva/
 
 # Temp Files
 *.orig

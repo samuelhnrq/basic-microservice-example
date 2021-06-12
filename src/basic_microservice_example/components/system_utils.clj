@@ -33,8 +33,11 @@
   (stop-components!)
   (shutdown-agents))
 
-(defn ^:private system-for-env [environment systems]
-  (get systems environment (:base-system systems)))
+(defn ^:private system-for-env
+  "Tries to find the specified environment in the map,
+  Otherwise defaults to the key :base-system"
+  [env all-systems]
+  (get all-systems env (:base-system all-systems)))
 
 (defn bootstrap! [systems-map environment]
   (let [system-map ((system-for-env environment systems-map))]

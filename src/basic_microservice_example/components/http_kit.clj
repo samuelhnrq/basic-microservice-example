@@ -1,7 +1,8 @@
 (ns basic-microservice-example.components.http-kit
   (:require [com.stuartsierra.component :as component]
             [org.httpkit.client :as http-kit]
-            [basic-microservice-example.protocols.http-client :as http-client]))
+            [basic-microservice-example.protocols.http-client :as http-client])
+  (:import (java.io Writer)))
 
 (def http-kit-keys
   [:url :method :body :oauth-token :user-agent :headers :form-params
@@ -32,7 +33,7 @@
   Object
   (toString [_] "<HttpKit>"))
 
-(defmethod print-method HttpKit [_ ^java.io.Writer w]
+(defmethod print-method HttpKit [_ ^Writer w]
   (.write w "<HttpKit>"))
 
 (defn new-http-client []

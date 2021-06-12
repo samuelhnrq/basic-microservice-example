@@ -2,7 +2,8 @@
   (:require [com.stuartsierra.component :as component]
             [io.pedestal.interceptor.helpers :refer [before]]
             [io.pedestal.http.route :as route]
-            [io.pedestal.http :as bootstrap]))
+            [io.pedestal.http :as bootstrap])
+  (:import (java.io Writer)))
 
 (defn- add-system [service]
   (before (fn [context] (assoc-in context [:request :components] service))))
@@ -61,7 +62,7 @@
   Object
   (toString [_] "<Service>"))
 
-(defmethod print-method Service [v ^java.io.Writer w]
+(defmethod print-method Service [_ ^Writer w]
   (.write w "<Service>"))
 
 (defn new-service [] (map->Service {}))

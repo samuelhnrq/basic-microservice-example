@@ -1,4 +1,4 @@
-(ns basic-microservice-example.aux.init
+(ns basic-microservice-example.helpers.init
   (:require [basic-microservice-example.components :as components]
             [basic-microservice-example.protocols.storage-client :as storage-client]
             [basic-microservice-example.components.mock-http :as mock-http]))

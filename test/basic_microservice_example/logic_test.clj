@@ -1,6 +1,6 @@
 (ns basic-microservice-example.logic-test
   (:require [midje.sweet :refer :all]
-            [basic-microservice-example.logic :as logic])
+            [basic-microservice-example.logic.account :as logic])
   (:import [java.util UUID]))
 
 (def customer-id (UUID/randomUUID))

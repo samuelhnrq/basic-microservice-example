@@ -6,4 +6,5 @@
   (start [this] this)
   (stop [this] this))
 
-(defn new-config [config-map] (->DummyConfig config-map))
+(defn new-config [config-map]
+  (->DummyConfig config-map))

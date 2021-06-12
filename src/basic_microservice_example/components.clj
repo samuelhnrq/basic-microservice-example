@@ -25,24 +25,29 @@
 (def web-app-deps
   [:config :routes :http :storage])
 
-(defn base []
+(defn base-system []
   (component/system-map
+    ; Why is this a component??? Must maintain mutable state? Just to be
+    ; injected somewhere else?
     :config (config/new-config base-config-map)
-    :http-impl (component/using (http-kit/new-http-client) [:config])
-    :http (component/using (http/new-http) [:config :http-impl])
     :storage (storage/new-in-memory)
+    :boleto-storage (storage/new-in-memory)
+    ; http-client
+    :http-impl (component/using (http-kit/new-http-client) [:config])
+    ; http server
+    :http (component/using (http/new-http) [:config :http-impl])
     :routes (routes/new-routes #'basic-microservice-example.service/routes)
     :service (component/using (service/new-service) web-app-deps)
     :servlet (component/using (dev-servlet/new-servlet) [:service])))
 
-(defn e2e []
+(defn e2e-system []
   (s/set-fn-validation! true)
-  (merge (base)
-         (component/system-map
-           :config (config/new-config local-config-map))))
+  (let [e2e-system-map (component/system-map
+                         :config (config/new-config local-config-map))]
+    (merge (base-system) e2e-system-map)))
 
 (defn test-system []
-  (merge (base)
+  (merge (base-system)
          (component/system-map
            :config (config/new-config local-config-map)
            :servlet (component/using (mock-servlet/new-servlet) [:service])
@@ -51,10 +56,10 @@
            :service (component/using (service/new-service) (conj web-app-deps :debug-logger)))))
 
 (def systems-map
-  {:e2e-system   e2e
-   :local-system e2e
+  {:e2e-system   e2e-system
+   :local-system e2e-system
    :test-system  test-system
-   :base-system  base})
+   :base-system  base-system})
 
 (defn create-and-start-system!
   ([] (create-and-start-system! :base-system))

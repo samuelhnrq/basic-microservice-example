@@ -1,7 +1,8 @@
 (ns basic-microservice-example.components.dev-servlet
   (:require [com.stuartsierra.component :as component]
             [io.pedestal.http :as bootstrap]
-            [io.pedestal.service-tools.dev :as dev]))
+            [io.pedestal.service-tools.dev :as dev])
+  (:import (java.io Writer)))
 
 (defrecord DevServlet [service]
   component/Lifecycle
@@ -21,7 +22,7 @@
 
 (defn new-servlet [] (map->DevServlet {}))
 
-(defmethod print-method DevServlet [v ^java.io.Writer w]
+(defmethod print-method DevServlet [v ^Writer w]
   (.write w "<DevServlet>"))
 
 (defn main [start-fn & _args]

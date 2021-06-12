@@ -18,7 +18,6 @@
 
 (defn create-account!
   "Create account by hitting /accounts/ endpoint.
-
    Since this endpoint gets customer info via an http request to another
    service, we mock the response from that service"
   [{:keys [customer-id] :as world}]

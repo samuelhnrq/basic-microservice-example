@@ -18,9 +18,11 @@
 (def underscore->dash-exceptions #{})
 
 (s/defn ^:private replace-char-gen :- (s/pred fn?)
+  "sdadad"
   ;; Will replace dashes with underscores or underscores with dashes for the keywords in a map
   ;; Ignores String values in a map (both keys and values)
-  ([from :- Character, to :- Character] (replace-char-gen from to #{}))
+  ([from :- Character, to :- Character]
+   (replace-char-gen from to #{}))
   ([from :- Character, to :- Character, exceptions :- #{s/Keyword}]
    #(if (keyword? %) (replace-char % from to exceptions) %)))
 

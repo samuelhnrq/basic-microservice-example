@@ -1,7 +1,7 @@
 (ns basic-microservice-example.controller-test
   (:require [midje.sweet :refer :all]
             [basic-microservice-example.db.saving-account :as db.saving-account]
-            [basic-microservice-example.controller :as controller])
+            [basic-microservice-example.account :as controller])
   (:import [java.util UUID]))
 
 (def customer-id (UUID/randomUUID))

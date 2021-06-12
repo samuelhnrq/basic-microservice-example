@@ -8,4 +8,3 @@
 
 (fact "hitting home page endpoint"
       (GET "/" 200) => (match {:body {:message "Hello World!"}}))
-
